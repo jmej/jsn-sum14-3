@@ -138,3 +138,10 @@ assert(card0.prevInSuit()===48,"Test 23 failed");
 assert(card3.prevInSuit()===51,"Test 24 failed");
 assert(card5.prevInSuit()===1,"Test 25 failed");
 
+//1c) assertions that functions are shared / not copies
+
+assert((card5.prevInSuit===card0.prevInSuit),"Test 26 failed");
+assert((card5.prevInSuit===makeCard.prevInSuit),"Test 27 failed");
+assert((card1.rank===makeCard.rank),"Test 28 failed");
+assert((card1.rank===card51.rank),"Test 28 failed");
+
