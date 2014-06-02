@@ -145,3 +145,85 @@ assert((card5.prevInSuit===makeCard.prevInSuit),"Test 27 failed");
 assert((card1.rank===makeCard.rank),"Test 28 failed");
 assert((card1.rank===card51.rank),"Test 28 failed");
 
+//2) Stacking the Deque
+
+function makeDeque(inputValues){
+ 	var deque = {};
+ 	deque.values = [];
+ 	for (var i = 0; i < inputValues.length; i++){
+ 		deque.values[i] = inputValues[i];
+ 	}
+ 	deque.top = makeDeque.top;
+ 	deque.bottom = makeDeque.bottom;
+ 	deque.push = makeDeque.push;
+ 	deque.pop = makeDeque.pop;
+ 	deque.shift = makeDeque.shift;
+ 	deque.unshift = makeDeque.unshift;
+ 	deque.cut = makeDeque.cut;
+ 	deque.sort = makeDeque.sort;
+ 	deque.map = makeDeque.map;
+ 	return deque;
+
+}
+makeDeque.top = function() {
+	o = this.values[(this.values.length)-1]
+	console.log(o);
+	return o;
+}
+makeDeque.bottom = function() {
+	o = this.values[0]
+	return o;
+}
+
+makeDeque.pop = function() {
+	this.values.pop();
+}
+makeDeque.push = function(val) {
+	this.values.push(val);
+    return val;
+}
+
+makeDeque.shift = function() {
+	//...
+};
+makeDeque.unshift = function(val) {
+	//...
+};
+
+makeDeque.cut = function(offset) {
+	//...
+};
+
+makeDeque.map = function(convertValFn) {
+	//...
+};
+
+makeDeque.sort = function(compareValsFn) {
+	//...
+};
+
+//testing
+var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var deque1 = makeDeque(arr1);
+console.logt(deque1.top());
+
+
+var someCards = /* make array of 52 card objects here, using your code from Problem 1) */;
+// At this point, data looks like Fig.1
+
+//-------
+// Part b): build a deque instance:
+var deckOfCards = makeDeque(someCards);
+// sort it:
+deckOfCards.sort(/* something here */);
+// At this point, data looks like Fig.2
+
+// sort it differently:
+deckOfCards.sort(/* something different here */);
+
+//-------
+// Part c): build another deque instance:
+var someNames = /* make array of student/TA names here */;
+var deckOfNames = makeDeque(someNames);
+deckOfNames.sort(/* something here */);
+
