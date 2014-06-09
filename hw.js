@@ -18,7 +18,7 @@ function makeCard(id) {
 	card.suit = makeCard.suit;
 	card.cardID = makeCard.cardId;
 	card.color = makeCard.color;
-	card.name = makeCard.name;
+	card.cardName = makeCard.cardName;
 	card.precedes = makeCard.precedes;
 	card.sameColor = makeCard.sameColor;
 	card.nextInSuit = makeCard.nextInSuit;
@@ -46,7 +46,7 @@ makeCard.color = function() {
       	var id = this.id;
       	return(colors[(id % 4)]);
 	}
-makeCard.name = function() {
+makeCard.cardName = function() {
        var ranks = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
        var suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
        var rank = ranks[(this.rank()-1)];
@@ -89,7 +89,7 @@ console.log(card34.rank());
 console.log(card34.suit());
 console.log(card34.cardID());
 console.log(card34.color());
-//console.log(card34.name()); //getting card.name is not a function error ?
+console.log(card34.cardName()); //getting card.name is not a function error ?
 console.log(card13.precedes(card34));
 
 //1b) assertions
@@ -147,6 +147,15 @@ assert((card1.rank===card51.rank),"Test 28 failed");
 
 //2) Stacking the Deque
 
+/*
+ * This is a JavaScript Scratchpad.
+ *
+ * Enter some JavaScript, then Right Click or choose from the Execute Menu:
+ * 1. Run to evaluate the selected text (Cmd-R),
+ * 2. Inspect to bring up an Object Inspector on the result (Cmd-I), or,
+ * 3. Display to insert the result in a comment after the selection. (Cmd-L)
+ */
+
 function makeDeque(inputValues){
  	var deque = {};
  	deque.values = [];
@@ -167,7 +176,6 @@ function makeDeque(inputValues){
 }
 makeDeque.top = function() {
 	o = this.values[(this.values.length)-1]
-	console.log(o);
 	return o;
 }
 makeDeque.bottom = function() {
@@ -176,36 +184,48 @@ makeDeque.bottom = function() {
 }
 
 makeDeque.pop = function() {
-	this.values.pop();
+	return (this.values.pop());
 }
 makeDeque.push = function(val) {
 	this.values.push(val);
-    return val;
+}
+makeDeque.shift = function() {
+	return (this.values.shift());
 }
 
-makeDeque.shift = function() {
-	//...
-};
 makeDeque.unshift = function(val) {
-	//...
-};
+	this.values.unshift(val);
+}
 
 makeDeque.cut = function(offset) {
-	//...
-};
+	if (!offset) {
+		var mid = (Math.ceil(this.values.length/2));
+	}
+    else if (offset>=0) { 
+        var mid = (Math.ceil(this.values.length/2)+offset);
+         }
+    else if (offset<0) { 
+        var mid = (Math.ceil(this.values.length/2)-(Math.abs(offset)));
+         }
+    var arr1 = this.values.slice(0, mid);
+	var arr2 = this.values.slice(mid, this.values.length);
+    return arr2.concat(arr1);
+}
 
 makeDeque.map = function(convertValFn) {
 	//...
-};
+}
 
 makeDeque.sort = function(compareValsFn) {
-	//...
-};
+	compareValsFn(a,b)
+}
 
 //testing
-var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 var deque1 = makeDeque(arr1);
-console.logt(deque1.top());
+console.log(deque1.top());
+console.log(deque1.cut(25));
+
 
 
 var someCards = /* make array of 52 card objects here, using your code from Problem 1) */;
