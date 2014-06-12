@@ -213,11 +213,12 @@ makeDeque.cut = function(offset) {
 }
 
 makeDeque.map = function(convertValFn) {
-	//...
+	if (convertFn.length>2){return;} //steps the 3rd argument in map() from messing with the otherwise protected array (ex 2B)
+  	return this.values.map(convertFn);
 }
 
-makeDeque.sort = function(compareValsFn) {
-	compareValsFn(a,b)
+makeDeque.sort = function(sortFn) {
+	return this.values.sort(sortFn);
 }
 
 //testing
@@ -227,23 +228,74 @@ console.log(deque1.top());
 console.log(deque1.cut(25));
 
 
+//2b
 
-var someCards = /* make array of 52 card objects here, using your code from Problem 1) */;
+var someCards = [];
+
+	for (var i =0; i<52; i++){
+		someCards.push(makeCard(i));  
+	}
+
+/* make array of 52 card objects here, using your code from Problem 1) */;
 // At this point, data looks like Fig.1
 
 //-------
 // Part b): build a deque instance:
 var deckOfCards = makeDeque(someCards);
-// sort it:
-deckOfCards.sort(/* something here */);
-// At this point, data looks like Fig.2
 
-// sort it differently:
-deckOfCards.sort(/* something different here */);
+//test
+deckOfCards.values[2].cardName();
+"Ace of Spades"
+deckOfCards.values[3].cardName();
+"Ace of Clubs"
+deckOfCards.values[4].cardName();
+"Two of Hearts"
+
+// sort it:
+var deck = makeDeque(someCards);
+var deckSorted = makeDeque(deck.sort(function compareNumbers(a, b) {return a - b;}));
+deckSorted.top().cardName();
+var deckCut = makeDeque(deck.cut(1));
+assert(deckCut.top().cardName() === "Seven of Diamonds", "Failed Seven of Diamonds test");
+
+// sort it alphabetically by name:
+var deckSorted = makeDeque(deck.sort(function alphaName(a, b) {
+    if (a.cardName() > b.cardName())
+        return 1
+    if (a.cardName() < b.cardName())
+        return -1
+    return 0;
+    }
+));
+deckSorted.top().cardName();
 
 //-------
 // Part c): build another deque instance:
-var someNames = /* make array of student/TA names here */;
+//alpha sort
+var someNames = ['Abe','Adam','Chad','Charity','Christian','Danielle','Esha','Geoff','Hanna','Jesse','Joshua',
+'Kellen','Kyle','Liam','Lori','Matt','Nathan','Shawna','Tom','Abby','Amanda','Chris','Clarissa','Jhenna'];
 var deckOfNames = makeDeque(someNames);
-deckOfNames.sort(/* something here */);
+var sortedNames = deckOfNames.sort(function alphaName(a, b) {
+    if (a > b)
+        return 1
+    if (a < b)
+        return -1
+    return 0;
+    }
+);
+
+//alpha sort by second letter
+var someNames = ['Abe','Adam','Chad','Charity','Christian','Danielle','Esha','Geoff','Hanna','Jesse','Joshua',
+'Kellen','Kyle','Liam','Lori','Matt','Nathan','Shawna','Tom','Abby','Amanda','Chris','Clarissa','Jhenna'];
+var deckOfNames = makeDeque(someNames);
+var sortedNames = deckOfNames.sort(function alphaName(a, b) {
+    if (a.slice(1) > b.slice(1))
+        return 1
+    if (a.slice(1) < b.slice(1))
+        return -1
+    return 0;
+    }
+);
+
+
 
